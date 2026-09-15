@@ -58,8 +58,8 @@ export const Footer = () => {
           <Link href="/cart" className="hover:text-white transition-colors">
             Shopping Cart
           </Link>
-          <Link href="/products" className="hover:text-white transition-colors">
-            Track Order
+          <Link href="/admin" className="hover:text-amber-400 font-semibold transition-colors flex items-center gap-1">
+            <span>Admin Dashboard</span>
           </Link>
           <Link href="/login" className="hover:text-white transition-colors">
             My Account

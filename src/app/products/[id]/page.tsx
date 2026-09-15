@@ -1,6 +1,5 @@
-import { getProductById, getRelatedProducts, products } from "@/data/products";
-import ProductDetails from "@/components/ProductDetails";
-import { notFound } from "next/navigation";
+import ProductDetailView from "@/components/ProductDetailView";
+import { getProductById, products } from "@/data/products";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -19,7 +18,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | NAHIAN's Store",
+      title: "Product Details | NAHIAN's Store",
     };
   }
 
@@ -35,15 +34,8 @@ const ProductDetailPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const product = getProductById(id);
 
-  if (!product) {
-    notFound();
-  }
-
-  const relatedProducts = getRelatedProducts(id, 4);
-
-  return <ProductDetails product={product} relatedProducts={relatedProducts} />;
+  return <ProductDetailView id={id} />;
 };
 
 export default ProductDetailPage;

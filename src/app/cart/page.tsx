@@ -21,6 +21,8 @@ import {
   Check,
 } from "lucide-react";
 
+import { useOrderStore } from "@/stores/orderStore";
+
 const steps = [
   { id: 1, title: "Shopping Cart" },
   { id: 2, title: "Shipping Address" },
@@ -32,6 +34,7 @@ function CartContent() {
   const router = useRouter();
   const { cart, removeFromCart, updateQuantity, clearCart, hasHydrated, setHasHydrated } =
     useCartStore();
+  const { addOrder } = useOrderStore();
   const { success, info } = useToast();
 
   const [mounted, setMounted] = useState(false);
@@ -98,6 +101,20 @@ function CartContent() {
     setTimeout(() => {
       setIsProcessingOrder(false);
       const orderId = `#ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      // Save order to store
+      addOrder({
+        orderNumber: orderId,
+        items: [...cart],
+        total,
+        subtotal,
+        shippingFee,
+        discount: discountAmount,
+        shipping: shippingData,
+        paymentMethod: data.paymentMethod,
+        status: "processing",
+      });
+
       setCompletedOrder({
         orderId,
         items: [...cart],

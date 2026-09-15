@@ -1,10 +1,13 @@
-import { products } from "@/data/products";
+"use client";
+
+import { useProductStore } from "@/stores/productStore";
+import { products as initialProducts } from "@/data/products";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
 import Filter from "./Filter";
 import { ArrowRight, PackageSearch } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 interface ProductListProps {
   category?: string;
@@ -14,8 +17,17 @@ interface ProductListProps {
 }
 
 const ProductList = ({ category, search, sort, params }: ProductListProps) => {
+  const { products: storeProducts } = useProductStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const activeProducts = mounted && storeProducts.length > 0 ? storeProducts : initialProducts;
+
   // 1. Filter by category
-  let filtered = [...products];
+  let filtered = [...activeProducts];
   if (category && category !== "all") {
     filtered = filtered.filter(
       (p) => p.category.toLowerCase() === category.toLowerCase()
@@ -39,15 +51,24 @@ const ProductList = ({ category, search, sort, params }: ProductListProps) => {
   } else if (sort === "desc") {
     filtered.sort((a, b) => b.price - a.price);
   } else if (sort === "oldest") {
-    filtered.sort((a, b) => Number(a.id) - Number(b.id));
+    filtered.sort((a, b) => {
+      const idA = isNaN(Number(a.id)) ? 0 : Number(a.id);
+      const idB = isNaN(Number(b.id)) ? 0 : Number(b.id);
+      return idA - idB;
+    });
   } else {
     // "newest" by default
-    filtered.sort((a, b) => Number(b.id) - Number(a.id));
+    filtered.sort((a, b) => {
+      const idA = isNaN(Number(a.id)) ? 0 : Number(a.id);
+      const idB = isNaN(Number(b.id)) ? 0 : Number(b.id);
+      return idB - idA;
+    });
   }
 
-  const displayProducts = params === "homepage" && !category && !search
-    ? filtered.slice(0, 6)
-    : filtered;
+  const displayProducts =
+    params === "homepage" && !category && !search
+      ? filtered.slice(0, 8)
+      : filtered;
 
   return (
     <div className="w-full">

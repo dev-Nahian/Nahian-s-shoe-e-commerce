@@ -65,6 +65,15 @@ const Navbar = () => {
           <ShoppingCartIcon />
 
           <Link
+            href="/admin"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-gray-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 transition-all"
+            title="Open Store Admin Dashboard"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Admin</span>
+          </Link>
+
+          <Link
             href="/login"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all border border-gray-200"
           >
