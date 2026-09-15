@@ -80,8 +80,8 @@ const PaymentForm = ({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <div>
-        <h3 className="text-lg font-bold text-gray-900">Payment Method</h3>
-        <p className="text-xs text-gray-500 mt-1">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Payment Method</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           Select your preferred payment method. All transactions are securely encrypted.
         </p>
       </div>
@@ -94,17 +94,17 @@ const PaymentForm = ({
           onClick={() => setMethod("card")}
           className={`p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 text-left transition-all cursor-pointer ${
             method === "card"
-              ? "border-gray-900 bg-gray-50 shadow-xs"
-              : "border-gray-200 hover:border-gray-300"
+              ? "border-gray-900 dark:border-white bg-gray-50 dark:bg-gray-800 shadow-xs"
+              : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600"
           }`}
         >
           <div className="flex items-center justify-between">
-            <CreditCard className="w-5 h-5 text-gray-800" />
-            {method === "card" && <CheckCircle2 className="w-4 h-4 text-gray-900" />}
+            <CreditCard className="w-5 h-5 text-gray-800 dark:text-gray-200" />
+            {method === "card" && <CheckCircle2 className="w-4 h-4 text-gray-900 dark:text-white" />}
           </div>
           <div>
-            <span className="text-xs font-bold text-gray-900 block">Credit Card</span>
-            <span className="text-[11px] text-gray-500">Visa, MC, Amex</span>
+            <span className="text-xs font-bold text-gray-900 dark:text-white block">Credit Card</span>
+            <span className="text-[11px] text-gray-500 dark:text-gray-400">Visa, MC, Amex</span>
           </div>
         </button>
 
@@ -114,19 +114,19 @@ const PaymentForm = ({
           onClick={() => setMethod("klarna")}
           className={`p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 text-left transition-all cursor-pointer ${
             method === "klarna"
-              ? "border-gray-900 bg-pink-50/40 shadow-xs"
-              : "border-gray-200 hover:border-gray-300"
+              ? "border-gray-900 dark:border-pink-400 bg-pink-50/40 dark:bg-pink-950/20 shadow-xs"
+              : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600"
           }`}
         >
           <div className="flex items-center justify-between">
             <div className="relative w-12 h-5">
               <Image src="/klarna.png" alt="Klarna" fill sizes="48px" className="object-contain" />
             </div>
-            {method === "klarna" && <CheckCircle2 className="w-4 h-4 text-gray-900" />}
+            {method === "klarna" && <CheckCircle2 className="w-4 h-4 text-gray-900 dark:text-pink-400" />}
           </div>
           <div>
-            <span className="text-xs font-bold text-gray-900 block">Pay in 4</span>
-            <span className="text-[11px] text-gray-500">4x ${(totalAmount / 4).toFixed(2)}</span>
+            <span className="text-xs font-bold text-gray-900 dark:text-white block">Pay in 4</span>
+            <span className="text-[11px] text-gray-500 dark:text-gray-400">4x ${(totalAmount / 4).toFixed(2)}</span>
           </div>
         </button>
 
@@ -136,28 +136,28 @@ const PaymentForm = ({
           onClick={() => setMethod("stripe")}
           className={`p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 text-left transition-all cursor-pointer ${
             method === "stripe"
-              ? "border-gray-900 bg-indigo-50/40 shadow-xs"
-              : "border-gray-200 hover:border-gray-300"
+              ? "border-gray-900 dark:border-indigo-400 bg-indigo-50/40 dark:bg-indigo-950/20 shadow-xs"
+              : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-600"
           }`}
         >
           <div className="flex items-center justify-between">
             <div className="relative w-12 h-5">
               <Image src="/stripe.png" alt="Stripe" fill sizes="48px" className="object-contain" />
             </div>
-            {method === "stripe" && <CheckCircle2 className="w-4 h-4 text-gray-900" />}
+            {method === "stripe" && <CheckCircle2 className="w-4 h-4 text-gray-900 dark:text-indigo-400" />}
           </div>
           <div>
-            <span className="text-xs font-bold text-gray-900 block">Stripe 1-Click</span>
-            <span className="text-[11px] text-gray-500">Fast checkout</span>
+            <span className="text-xs font-bold text-gray-900 dark:text-white block">Stripe 1-Click</span>
+            <span className="text-[11px] text-gray-500 dark:text-gray-400">Fast checkout</span>
           </div>
         </button>
       </div>
 
       {/* CARD DETAILS FORM */}
       {method === "card" && (
-        <div className="p-5 rounded-2xl bg-gray-50/80 border border-gray-100 flex flex-col gap-4">
+        <div className="p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-gray-700">Card Details</span>
+            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Card Details</span>
             <div className="relative w-36 h-6">
               <Image src="/cards.png" alt="Accepted cards" fill sizes="144px" className="object-contain" />
             </div>
@@ -165,14 +165,16 @@ const PaymentForm = ({
 
           {/* Cardholder Name */}
           <div className="flex flex-col gap-1">
-            <label className="text-[11px] font-semibold text-gray-600">Cardholder Name *</label>
+            <label className="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Cardholder Name *</label>
             <input
               type="text"
               placeholder="Full Name as on card"
               value={cardHolder}
               onChange={(e) => setCardHolder(e.target.value)}
-              className={`w-full px-3.5 py-2 rounded-xl bg-white border text-xs sm:text-sm outline-none transition-all ${
-                errors.cardHolder ? "border-red-500" : "border-gray-200 focus:border-gray-900"
+              className={`w-full px-3.5 py-2 rounded-xl bg-white dark:bg-gray-800 border text-xs sm:text-sm outline-none transition-all ${
+                errors.cardHolder
+                  ? "border-red-500"
+                  : "border-gray-200 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white"
               }`}
             />
             {errors.cardHolder && (
@@ -182,15 +184,17 @@ const PaymentForm = ({
 
           {/* Card Number */}
           <div className="flex flex-col gap-1">
-            <label className="text-[11px] font-semibold text-gray-600">Card Number *</label>
+            <label className="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Card Number *</label>
             <div className="relative">
               <input
                 type="text"
                 placeholder="4532 •••• •••• 8892"
                 value={cardNumber}
                 onChange={handleCardNumberChange}
-                className={`w-full pl-3.5 pr-10 py-2 rounded-xl bg-white border text-xs sm:text-sm outline-none transition-all font-mono ${
-                  errors.cardNumber ? "border-red-500" : "border-gray-200 focus:border-gray-900"
+                className={`w-full pl-3.5 pr-10 py-2 rounded-xl bg-white dark:bg-gray-800 border text-xs sm:text-sm outline-none transition-all font-mono ${
+                  errors.cardNumber
+                    ? "border-red-500"
+                    : "border-gray-200 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white"
                 }`}
               />
               <Lock className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" />
@@ -203,14 +207,16 @@ const PaymentForm = ({
           {/* Expiry & CVV */}
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <label className="text-[11px] font-semibold text-gray-600">Expiration (MM/YY) *</label>
+              <label className="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Expiration (MM/YY) *</label>
               <input
                 type="text"
                 placeholder="12/28"
                 value={expirationDate}
                 onChange={handleExpirationChange}
-                className={`w-full px-3.5 py-2 rounded-xl bg-white border text-xs sm:text-sm outline-none transition-all font-mono ${
-                  errors.expirationDate ? "border-red-500" : "border-gray-200 focus:border-gray-900"
+                className={`w-full px-3.5 py-2 rounded-xl bg-white dark:bg-gray-800 border text-xs sm:text-sm outline-none transition-all font-mono ${
+                  errors.expirationDate
+                    ? "border-red-500"
+                    : "border-gray-200 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white"
                 }`}
               />
               {errors.expirationDate && (
@@ -219,14 +225,16 @@ const PaymentForm = ({
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="text-[11px] font-semibold text-gray-600">CVV / CVC *</label>
+              <label className="text-[11px] font-semibold text-gray-600 dark:text-gray-400">CVV / CVC *</label>
               <input
                 type="password"
                 placeholder="•••"
                 value={cvv}
                 onChange={handleCvvChange}
-                className={`w-full px-3.5 py-2 rounded-xl bg-white border text-xs sm:text-sm outline-none transition-all font-mono ${
-                  errors.cvv ? "border-red-500" : "border-gray-200 focus:border-gray-900"
+                className={`w-full px-3.5 py-2 rounded-xl bg-white dark:bg-gray-800 border text-xs sm:text-sm outline-none transition-all font-mono ${
+                  errors.cvv
+                    ? "border-red-500"
+                    : "border-gray-200 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white"
                 }`}
               />
               {errors.cvv && <span className="text-[10px] text-red-500">{errors.cvv}</span>}
@@ -237,9 +245,9 @@ const PaymentForm = ({
 
       {/* KLARNA PROMPT */}
       {method === "klarna" && (
-        <div className="p-5 rounded-2xl bg-pink-50/50 border border-pink-100 flex flex-col gap-2 text-xs text-pink-950">
-          <p className="font-semibold">Klarna 4-Interest-Free Payments</p>
-          <p className="text-gray-600 leading-relaxed">
+        <div className="p-5 rounded-2xl bg-pink-50/50 dark:bg-pink-950/20 border border-pink-100 dark:border-pink-900/40 flex flex-col gap-2 text-xs text-pink-950 dark:text-pink-200">
+          <p className="font-bold">Klarna 4-Interest-Free Payments</p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
             You will be redirected to Klarna to complete your 4 installments of $
             {(totalAmount / 4).toFixed(2)} with no interest or hidden fees.
           </p>
@@ -248,27 +256,27 @@ const PaymentForm = ({
 
       {/* STRIPE PROMPT */}
       {method === "stripe" && (
-        <div className="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100 flex flex-col gap-2 text-xs text-indigo-950">
-          <p className="font-semibold">Instant Checkout with Stripe</p>
-          <p className="text-gray-600 leading-relaxed">
+        <div className="p-5 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40 flex flex-col gap-2 text-xs text-indigo-950 dark:text-indigo-200">
+          <p className="font-bold">Instant Checkout with Stripe</p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
             Secure, end-to-end encrypted payment powered by Stripe. Apple Pay and Google Pay supported.
           </p>
         </div>
       )}
 
       {/* Security badge */}
-      <div className="flex items-center gap-2 text-xs text-gray-500">
-        <ShieldCheck className="w-4 h-4 text-emerald-600" />
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
         <span>256-bit SSL encrypted secure checkout</span>
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
         <button
           type="button"
           onClick={onBack}
           disabled={isProcessing}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Shipping</span>
@@ -277,10 +285,10 @@ const PaymentForm = ({
         <button
           type="submit"
           disabled={isProcessing}
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gray-900 text-white text-sm font-bold hover:bg-gray-800 active:scale-98 transition-all shadow-lg cursor-pointer disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gray-900 dark:bg-white dark:text-gray-950 text-white text-xs sm:text-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-100 active:scale-98 transition-all shadow-lg cursor-pointer disabled:opacity-50"
         >
           {isProcessing ? (
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-white dark:border-gray-950 border-t-transparent rounded-full animate-spin" />
           ) : (
             <Lock className="w-4 h-4" />
           )}

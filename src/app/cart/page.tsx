@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import useCartStore from "@/stores/cartStore";
+import { useOrderStore } from "@/stores/orderStore";
 import { useToast } from "@/context/ToastContext";
 import { ShippingFormInputs, PaymentFormInputs } from "@/types";
 import ShippingForm from "@/components/ShippingForm";
@@ -20,8 +21,6 @@ import {
   ShieldCheck,
   Check,
 } from "lucide-react";
-
-import { useOrderStore } from "@/stores/orderStore";
 
 const steps = [
   { id: 1, title: "Shopping Cart" },
@@ -129,7 +128,7 @@ function CartContent() {
   if (!mounted || !hasHydrated) {
     return (
       <div className="flex justify-center items-center py-32">
-        <div className="w-8 h-8 border-3 border-gray-900 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-gray-900 dark:border-white border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -138,16 +137,16 @@ function CartContent() {
   if (cart.length === 0 && !completedOrder && activeStep === 1) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
-        <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mb-6">
+        <div className="w-20 h-20 rounded-full bg-gray-100 dark:bg-gray-900 flex items-center justify-center text-gray-400 mb-6">
           <ShoppingBag className="w-10 h-10" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-        <p className="text-sm text-gray-500 max-w-sm mb-8">
+        <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">Your cart is empty</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mb-8">
           Looks like you haven&apos;t added any items to your shopping cart yet.
         </p>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 text-white rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-md"
+          className="inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 dark:bg-white text-white dark:text-gray-950 rounded-full text-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-100 transition-all shadow-md"
         >
           <span>Start Shopping</span>
           <ArrowRight className="w-4 h-4" />
@@ -174,14 +173,14 @@ function CartContent() {
 
       {/* HEADER TITLE */}
       <div className="text-center">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
           {activeStep === 1
             ? "Your Shopping Cart"
             : activeStep === 2
             ? "Shipping Address"
             : "Review & Payment"}
         </h1>
-        <p className="text-xs sm:text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
           Complete your order in 3 simple, secure steps
         </p>
       </div>
@@ -209,8 +208,8 @@ function CartContent() {
                     isPassed
                       ? "bg-emerald-600 text-white"
                       : isCurrent
-                      ? "bg-gray-900 text-white ring-4 ring-gray-200"
-                      : "bg-gray-200 text-gray-500"
+                      ? "bg-gray-900 text-white dark:bg-amber-400 dark:text-gray-950 ring-4 ring-gray-200 dark:ring-gray-800"
+                      : "bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400"
                   }`}
                 >
                   {isPassed ? <Check className="w-4 h-4" /> : step.id}
@@ -218,10 +217,10 @@ function CartContent() {
                 <span
                   className={`text-xs sm:text-sm font-semibold hidden md:inline transition-colors ${
                     isCurrent
-                      ? "text-gray-900"
+                      ? "text-gray-900 dark:text-white"
                       : isPassed
-                      ? "text-emerald-700"
-                      : "text-gray-400"
+                      ? "text-emerald-700 dark:text-emerald-400"
+                      : "text-gray-400 dark:text-gray-600"
                   }`}
                 >
                   {step.title}
@@ -231,7 +230,7 @@ function CartContent() {
               {idx < steps.length - 1 && (
                 <div
                   className={`flex-1 h-0.5 mx-3 sm:mx-6 transition-colors ${
-                    isPassed ? "bg-emerald-600" : "bg-gray-200"
+                    isPassed ? "bg-emerald-600" : "bg-gray-200 dark:bg-gray-800"
                   }`}
                 />
               )}
@@ -243,12 +242,12 @@ function CartContent() {
       {/* MAIN CHECKOUT CONTAINER */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-4">
         {/* LEFT COLUMN: ACTIVE STEP CONTENT */}
-        <div className="w-full lg:col-span-7 bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-xs">
+        <div className="w-full lg:col-span-7 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-6 sm:p-8 shadow-xs">
           {/* STEP 1: CART ITEMS */}
           {activeStep === 1 && (
             <div className="flex flex-col gap-6">
-              <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-                <h3 className="font-bold text-gray-900 text-base">
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-gray-800">
+                <h3 className="font-bold text-gray-900 dark:text-white text-base">
                   Cart Items ({cart.reduce((acc, i) => acc + i.quantity, 0)})
                 </h3>
                 <button
@@ -256,13 +255,13 @@ function CartContent() {
                     clearCart();
                     info("Cart cleared");
                   }}
-                  className="text-xs font-medium text-red-500 hover:text-red-700 transition-colors"
+                  className="text-xs font-semibold text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors cursor-pointer"
                 >
                   Clear Cart
                 </button>
               </div>
 
-              <div className="flex flex-col gap-4 divide-y divide-gray-100">
+              <div className="flex flex-col gap-4 divide-y divide-gray-100 dark:divide-gray-800">
                 {cart.map((item) => (
                   <div
                     key={`${item.id}-${item.selectedSize}-${item.selectedColor}`}
@@ -270,7 +269,7 @@ function CartContent() {
                   >
                     {/* Item Image + Details */}
                     <div className="flex items-center gap-4">
-                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gray-50 border border-gray-100 overflow-hidden shrink-0">
+                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 overflow-hidden shrink-0">
                         <Image
                           src={
                             item.images[item.selectedColor] ||
@@ -287,11 +286,11 @@ function CartContent() {
                       <div className="flex flex-col gap-1">
                         <Link
                           href={`/products/${item.id}`}
-                          className="font-semibold text-sm sm:text-base text-gray-900 hover:text-amber-600 transition-colors line-clamp-1"
+                          className="font-bold text-sm sm:text-base text-gray-900 dark:text-white hover:text-amber-500 transition-colors line-clamp-1"
                         >
                           {item.name}
                         </Link>
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                           <span className="capitalize">
                             Color: <strong>{item.selectedColor}</strong>
                           </span>
@@ -300,7 +299,7 @@ function CartContent() {
                             Size: <strong>{item.selectedSize.toUpperCase()}</strong>
                           </span>
                         </div>
-                        <span className="text-sm font-bold text-gray-900 mt-1">
+                        <span className="text-sm font-extrabold text-gray-900 dark:text-white mt-1">
                           ${item.price.toFixed(2)}
                         </span>
                       </div>
@@ -308,20 +307,20 @@ function CartContent() {
 
                     {/* Quantity controls & Delete */}
                     <div className="flex flex-col sm:flex-row items-end sm:items-center gap-3">
-                      <div className="flex items-center border border-gray-200 rounded-lg p-0.5 bg-gray-50">
+                      <div className="flex items-center border border-gray-200 dark:border-gray-700 rounded-lg p-0.5 bg-gray-50 dark:bg-gray-800">
                         <button
                           onClick={() => updateQuantity(item, -1)}
-                          className="p-1.5 hover:bg-white rounded-md text-gray-600 transition-colors"
+                          className="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded-md text-gray-600 dark:text-gray-300 transition-colors cursor-pointer"
                           aria-label="Decrease"
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="w-7 text-center text-xs font-bold text-gray-800">
+                        <span className="w-7 text-center text-xs font-bold text-gray-800 dark:text-gray-200">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item, 1)}
-                          className="p-1.5 hover:bg-white rounded-md text-gray-600 transition-colors"
+                          className="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded-md text-gray-600 dark:text-gray-300 transition-colors cursor-pointer"
                           aria-label="Increase"
                         >
                           <Plus className="w-3.5 h-3.5" />
@@ -333,7 +332,7 @@ function CartContent() {
                           removeFromCart(item);
                           info(`Removed ${item.name} from cart`);
                         }}
-                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-all cursor-pointer"
                         aria-label="Remove item"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -366,12 +365,12 @@ function CartContent() {
         </div>
 
         {/* RIGHT COLUMN: ORDER SUMMARY SIDEBAR */}
-        <div className="w-full lg:col-span-5 bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-xs flex flex-col gap-6 sticky top-24">
-          <h3 className="font-bold text-gray-900 text-lg">Order Summary</h3>
+        <div className="w-full lg:col-span-5 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-6 sm:p-8 shadow-xs flex flex-col gap-6 sticky top-24">
+          <h3 className="font-extrabold text-gray-900 dark:text-white text-lg">Order Summary</h3>
 
           {/* Promo Code Input */}
           <form onSubmit={handleApplyPromo} className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-gray-700 flex items-center gap-1.5">
+            <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
               <Tag className="w-3.5 h-3.5 text-amber-500" />
               Promo Code
             </label>
@@ -382,12 +381,12 @@ function CartContent() {
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
                 disabled={promoApplied}
-                className="flex-1 px-3.5 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs sm:text-sm uppercase font-medium outline-none focus:border-gray-900 focus:bg-white"
+                className="flex-1 px-3.5 py-2 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs sm:text-sm uppercase font-medium outline-none focus:border-gray-900 dark:focus:border-white focus:bg-white dark:focus:bg-gray-800"
               />
               <button
                 type="submit"
                 disabled={promoApplied || !promoCode.trim()}
-                className="px-4 py-2 bg-gray-900 text-white rounded-xl text-xs font-semibold hover:bg-gray-800 disabled:opacity-40 transition-all cursor-pointer"
+                className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-950 rounded-xl text-xs font-bold hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-40 transition-all cursor-pointer"
               >
                 {promoApplied ? "Applied" : "Apply"}
               </button>
@@ -396,52 +395,52 @@ function CartContent() {
               <span className="text-[11px] text-red-500 font-medium">{promoError}</span>
             )}
             {promoApplied && (
-              <span className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                 <Check className="w-3 h-3" /> {discountPercent}% discount active
               </span>
             )}
           </form>
 
-          <hr className="border-gray-100" />
+          <hr className="border-gray-100 dark:border-gray-800" />
 
           {/* Cost breakdown */}
           <div className="flex flex-col gap-3 text-sm">
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Subtotal</span>
-              <span className="font-semibold text-gray-900">${subtotal.toFixed(2)}</span>
+              <span className="font-semibold text-gray-900 dark:text-white">${subtotal.toFixed(2)}</span>
             </div>
 
             {discountAmount > 0 && (
-              <div className="flex justify-between text-emerald-600">
+              <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
                 <span>Discount ({discountPercent}%)</span>
                 <span className="font-semibold">-${discountAmount.toFixed(2)}</span>
               </div>
             )}
 
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-1">
                 <span>Shipping Fee</span>
                 {subtotal > 50 && (
-                  <span className="text-[10px] bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold">
+                  <span className="text-[10px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 px-1.5 py-0.5 rounded-full font-bold">
                     FREE
                   </span>
                 )}
               </div>
-              <span className="font-semibold text-gray-900">
+              <span className="font-semibold text-gray-900 dark:text-white">
                 {shippingFee === 0 ? "$0.00" : `$${shippingFee.toFixed(2)}`}
               </span>
             </div>
 
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Estimated Taxes</span>
-              <span className="text-gray-400 text-xs">Included in price</span>
+              <span className="text-gray-400 dark:text-gray-500 text-xs">Included in price</span>
             </div>
 
-            <hr className="border-gray-100 my-1" />
+            <hr className="border-gray-100 dark:border-gray-800 my-1" />
 
             <div className="flex justify-between items-baseline text-base">
-              <span className="font-bold text-gray-900">Total</span>
-              <span className="text-2xl font-extrabold text-gray-900">
+              <span className="font-bold text-gray-900 dark:text-white">Total</span>
+              <span className="text-2xl font-extrabold text-gray-900 dark:text-white">
                 ${total.toFixed(2)}
               </span>
             </div>
@@ -452,7 +451,7 @@ function CartContent() {
             <button
               onClick={() => setStep(2)}
               disabled={cart.length === 0}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-sm font-semibold shadow-md active:scale-98 transition-all cursor-pointer disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-950 text-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-100 shadow-md active:scale-98 transition-all cursor-pointer disabled:opacity-50"
             >
               <span>Proceed to Checkout</span>
               <ArrowRight className="w-4 h-4" />
@@ -460,8 +459,8 @@ function CartContent() {
           )}
 
           {/* Trust Guarantees */}
-          <div className="flex items-center justify-center gap-2 pt-2 text-xs text-gray-500">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="flex items-center justify-center gap-2 pt-2 text-xs text-gray-500 dark:text-gray-400">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Encrypted checkout &amp; money-back guarantee</span>
           </div>
         </div>
@@ -475,7 +474,7 @@ export default function CartPage() {
     <Suspense
       fallback={
         <div className="flex justify-center items-center py-32">
-          <div className="w-8 h-8 border-3 border-gray-900 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-3 border-gray-900 dark:border-white border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

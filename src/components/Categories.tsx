@@ -77,10 +77,10 @@ const Categories = () => {
             key={cat.name}
             type="button"
             onClick={() => handleChange(cat.slug)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${
               isActive
-                ? "bg-gray-900 text-white shadow-sm scale-105"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                ? "bg-gray-900 text-white dark:bg-amber-400 dark:text-gray-950 shadow-sm scale-105"
+                : "bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white border border-transparent dark:border-gray-800"
             }`}
           >
             {cat.icon}
